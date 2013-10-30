@@ -1,0 +1,167 @@
+.bz-uploader {
+
+    .progress {
+        position: relative;
+        height: 30px;
+
+        .progress-bar {
+            position: relative;
+            overflow: hidden;
+        }
+        span {
+            font-size: 14px;
+            position: absolute;
+            top: 5px;
+            left: 8px;
+        }
+    }
+    /*Uploader*/
+    .upload-files {
+        ul {
+            margin-bottom: 10px;
+            li {
+                margin-bottom: 10px;
+                width: 300px;
+                .progress {
+                    &.progress-bar-info {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+        .progress-uploaded {
+        }
+    }
+    .uploaded-files {
+        margin-top: 10px;
+        .thumbnail {
+            display: inline-block;
+            width: 100px;
+            margin: 0 0 0px 10px;
+            a {
+                text-align: right;
+            }
+        }
+        a {
+            &.btn {
+                margin-left: 10px;
+            }
+        }
+        .one-file {
+            float: left;
+            margin-bottom: 10px;
+            min-width: 470px;
+            .file-img {
+                float: left;
+                padding-top: 25px;
+                width: 130px;
+            }
+            .file-description {
+                float: left;
+                width: 300px;
+            }
+        }
+    }
+
+    .upload-files {
+        ul {
+            margin-bottom: 0;
+            li {
+                .progress {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .btn-upload {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        input {
+            font-size: 36px;
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .uploaded-files {
+        margin-top: 10px;
+        .one-file {
+            float: left;
+            margin: 0 20px 0 0;
+            width: 47%;
+            .file-img {
+                display: inline-block;
+                margin-right: 10px;
+                overflow: hidden;
+                margin-top: 5px;
+                position: relative;
+                vertical-align: top;
+                width: 80px;
+                .delete-one-file {
+                    -webkit-transition: all 0.5s linear;
+                    -moz-transition: all 0.5s linear;
+                    -ms-transition: all 0.5s linear;
+                    -o-transition: all 0.5s linear;
+                    transition: all 0.5s linear;
+                    opacity: 0;
+                    background: rgba(0, 0, 0, 0.2);
+                    position: absolute;
+                    opacity: 0;
+                    -webkit-opacity: 0;
+                    -moz-opacity: 0;
+                    left: 0;
+                    right: 0;
+                    top: -30px;
+                    padding: 5px;
+                    text-align: right;
+                    text-decoration: none;
+                }
+                &:hover {
+                    .delete-one-file {
+                        -webkit-transition-duration: 0.1s;
+                        -moz-transition-duration: 0.1s;
+                        -ms-transition-duration: 0.1s;
+                        -o-transition-duration: 0.1s;
+                        transition-duration: 0.1s;
+                        opacity: 1;
+                        -webkit-opacity: 1;
+                        -moz-opacity: 1;
+                        top: 0;
+                        i {
+                            &:hover {
+                                text-decoration: none;
+                                color: #000000;
+                            }
+                        }
+                    }
+                }
+            }
+            .file-description {
+                display: inline-block;
+                width: 180px;
+                form {
+                    margin-bottom: 0;
+                    .control-group {
+                        margin-bottom: 0;
+                        .controls {
+                            textarea {
+                                width: 98%;
+                            }
+                            input {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

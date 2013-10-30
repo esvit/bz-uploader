@@ -1,0 +1,65 @@
+<div class="bz-uploader" ng-file-drop>
+
+    <!-- 2. ng-file-select | ng-file-select="options" -->
+    <!--input class="btn-file-uploader" ng-file-select type="file" multiple /-->
+    <div class="btn-upload">
+        <a href="" class="btn btn-default">Upload</a>
+        <input class="btn-file-uploader" ng-file-select type="file" multiple />
+    </div>
+
+    <div class="progress-uploaded" ng-if="uploader.queue.length && !autoupload">
+        <div>
+            <b>Progress:</b> {{ uploader.progress }}
+            <div class="progress progress-striped active">
+                <div class="bar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">Загрузить все</a>
+            <a class="btn btn-inverse" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">Удалить все</a>
+        </div><!-- ng-show="uploader.getNotUploadedItems().length"-->
+    </div>
+
+
+    <div class="upload-files" ng-if="uploader.queue.length">
+
+        <h4>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h4>
+        <ul class="list-unstyled">
+            <li ng-repeat="item in uploader.queue">
+                    <div ng-show="item.isUploaded" style="float: left; margin-right: 10px">{{ item.file.name }}</div>
+
+
+            <div class="row" ng-if="!item.isUploaded">
+                <div class="col col-lg-8">
+                    <div class="progress">
+                        <span>{{ item.file.name }}</span>
+                        <div class="progress-bar progress-bar-info" ng-style="{ 'width': item.progress + '%' }">
+                            <span>{{ item.file.name }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-lg-4">
+
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-sm" ng-href="" ng-click="$event.preventDefault(); item.upload()"
+                           ng-disabled="item.isUploaded">
+                            <span class="fa fa-upload"></span>
+                        </a>
+                        <a class="btn btn-danger btn-sm" ng-href="" ng-click="$event.preventDefault(); item.remove()">
+                            <span class="fa fa-trash-o"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+    </div>
+
+    <div class="uploaded-files" ng-if="files.length">
+        <div ng-transclude></div>
+
+        <div class="clearfix"></div>
+        <a class="btn btn-inverse" ng-href="" ng-click="deleteFiles()">Удалить все</a>
+    </div>
+</div>

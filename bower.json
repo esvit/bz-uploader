@@ -1,0 +1,19 @@
+{
+  "name": "bz-uploader",
+  "version": "0.1.0",
+  "main": [
+    "bz-uploader.js",
+    "bz-uploader.css"
+  ],
+  "ignore": [
+    "examples",
+    "src"
+  ],
+  "dependencies": {
+    "angular": ">=1.2.0-rc.2",
+    "angular-file-upload": "https://github.com/esvit/angular-file-upload.git#master"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.0-rc.2"
+  }
+}
