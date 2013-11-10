@@ -1,16 +1,16 @@
 <div class="bz-uploader" ng-file-drop>
     <div class="btn-upload">
-        <a href="" class="btn btn-default"><span class="fa fa-plus"></span> Upload</a>
+        <a href="" class="btn btn-default">{{ text.choose }}</a>
         <input class="btn-file-uploader" ng-file-select type="file" multiple/>
     </div>
 
     <div class="bz-upload-total row" ng-if="uploader.queue.length">
         <div class="col col-lg-4 btn-group" ng-if="!autoupload">
             <a class="btn btn-default" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">
-                <span class="fa fa-upload"></span> Upload <span class="badge">{{ uploader.queue.length }}</span>
+                <span class="fa fa-upload"></span> {{ text.upload }} <span class="badge">{{ uploader.queue.length }}</span>
             </a>
             <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">
-                <span class="fa fa-trash-o"></span> Cancel <span class="badge">{{ uploader.queue.length }}</span>
+                <span class="fa fa-trash-o"></span> {{ text.cancel }} <span class="badge">{{ uploader.queue.length }}</span>
             </a>
         </div>
         <div class="col col-lg-8" ng-if="uploader.progress > 0 && uploader.progress < 100">

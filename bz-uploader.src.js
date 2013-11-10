@@ -108,17 +108,25 @@ app.directive('bzUploader', [function() {
         scope: {
             'url': '=bzUploader',
             'files': '=ngModel',
-            'autoupload': '='
+            'autoupload': '=',
+            'text': '='
         },
         controller: bzUploaderController,
         templateUrl: 'bz-uploader/uploader.html',
         replace: true,
         transclude: true,
-        require: '?ngModel'
+        require: '?ngModel',
+        link: function(scope, element, attr) {
+            scope.text = angular.extend({
+                'choose': 'Choose files',
+                'upload': 'Upload',
+                'cancel': 'Cancel'
+            }, scope.text || {});
+        }
     };
 }]);
 angular.module('bzUploader').run(['$templateCache', function ($templateCache) {
-	$templateCache.put('bz-uploader/uploader.html', '<div class="bz-uploader" ng-file-drop> <div class="btn-upload"> <a href="" class="btn btn-default"><span class="fa fa-plus"></span> Upload</a> <input class="btn-file-uploader" ng-file-select type="file" multiple/> </div> <div class="bz-upload-total row" ng-if="uploader.queue.length"> <div class="col col-lg-4 btn-group" ng-if="!autoupload"> <a class="btn btn-default" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()"> <span class="fa fa-upload"></span> Upload <span class="badge">{{ uploader.queue.length }}</span> </a> <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()"> <span class="fa fa-trash-o"></span> Cancel <span class="badge">{{ uploader.queue.length }}</span> </a> </div> <div class="col col-lg-8" ng-if="uploader.progress> 0 && uploader.progress <100"> <div class="progress"> <span>{{ uploader.progress }}%</span> <div class="progress-bar progress-bar-success" ng-style="{ \'width\': uploader.progress + \'%\' }"> <span>{{ uploader.progress }}%</span> </div> </div> </div> </div> <div class="bz-upload-files" ng-if="uploader.queue.length"> <ul class="list-unstyled"> <li ng-repeat="item in uploader.queue"> <div ng-show="item.isUploaded">{{ item.file.name }}</div> <div class="row" ng-if="!item.isUploaded"> <div class="col col-lg-8"> <div class="progress"> <span>{{ item.file.name }}</span> <div class="progress-bar" ng-style="{ \'width\': item.progress + \'%\' }"> <span>{{ item.file.name }}</span> </div> </div> </div> <div class="col col-lg-4" ng-if="!autoupload"> <div class="btn-group"> <a class="btn btn-default btn-sm" ng-href="" ng-click="$event.preventDefault(); item.upload()" ng-disabled="item.isUploaded"> <span class="fa fa-upload"></span> </a> <a class="btn btn-danger btn-sm" ng-href="" ng-click="$event.preventDefault(); item.remove()"> <span class="fa fa-trash-o"></span> </a> </div> </div> </div> </li> </ul> </div> <div ng-transclude></div> </div>');
+	$templateCache.put('bz-uploader/uploader.html', '<div class="bz-uploader" ng-file-drop> <div class="btn-upload"> <a href="" class="btn btn-default">{{ text.choose }}</a> <input class="btn-file-uploader" ng-file-select type="file" multiple/> </div> <div class="bz-upload-total row" ng-if="uploader.queue.length"> <div class="col col-lg-4 btn-group" ng-if="!autoupload"> <a class="btn btn-default" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()"> <span class="fa fa-upload"></span> {{ text.upload }} <span class="badge">{{ uploader.queue.length }}</span> </a> <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()"> <span class="fa fa-trash-o"></span> {{ text.cancel }} <span class="badge">{{ uploader.queue.length }}</span> </a> </div> <div class="col col-lg-8" ng-if="uploader.progress> 0 && uploader.progress <100"> <div class="progress"> <span>{{ uploader.progress }}%</span> <div class="progress-bar progress-bar-success" ng-style="{ \'width\': uploader.progress + \'%\' }"> <span>{{ uploader.progress }}%</span> </div> </div> </div> </div> <div class="bz-upload-files" ng-if="uploader.queue.length"> <ul class="list-unstyled"> <li ng-repeat="item in uploader.queue"> <div ng-show="item.isUploaded">{{ item.file.name }}</div> <div class="row" ng-if="!item.isUploaded"> <div class="col col-lg-8"> <div class="progress"> <span>{{ item.file.name }}</span> <div class="progress-bar" ng-style="{ \'width\': item.progress + \'%\' }"> <span>{{ item.file.name }}</span> </div> </div> </div> <div class="col col-lg-4" ng-if="!autoupload"> <div class="btn-group"> <a class="btn btn-default btn-sm" ng-href="" ng-click="$event.preventDefault(); item.upload()" ng-disabled="item.isUploaded"> <span class="fa fa-upload"></span> </a> <a class="btn btn-danger btn-sm" ng-href="" ng-click="$event.preventDefault(); item.remove()"> <span class="fa fa-trash-o"></span> </a> </div> </div> </div> </li> </ul> </div> <div ng-transclude></div> </div>');
 }]);
     return app;
 }));
