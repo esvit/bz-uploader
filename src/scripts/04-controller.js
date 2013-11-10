@@ -1,6 +1,10 @@
 var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {
     $scope.autoupload = $scope.autoupload || false;
-    $scope.text = $scope.text || 'Upload';
+    $scope.text = angular.extend({
+        'choose': 'Choose files',
+        'upload': 'Upload',
+        'cancel': 'Cancel'
+    }, $parse($scope.translates || '')($scope) || {});
 
     // create a uploader with options
     var uploader = $fileUploader.create({
