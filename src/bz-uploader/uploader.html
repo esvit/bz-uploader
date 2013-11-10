@@ -13,7 +13,7 @@
                 <span class="fa fa-trash-o"></span> Cancel <span class="badge">{{ uploader.queue.length }}</span>
             </a>
         </div>
-        <div class="col col-lg-8" ng-if="uploader.progress > 0">
+        <div class="col col-lg-8" ng-if="uploader.progress > 0 && uploader.progress < 100">
             <div class="progress">
                 <span>{{ uploader.progress }}%</span>
 
@@ -57,7 +57,5 @@
         </ul>
     </div>
 
-    <div class="uploaded-files" ng-if="files.length">
-        <div ng-transclude></div>
-    </div>
+    <div ng-transclude></div>
 </div>
