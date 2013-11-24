@@ -1,6 +1,6 @@
 (function(angular, factory) {
     if (typeof define === 'function' && define.amd) {
-        define('bzUploader', ['angular', 'angular-file-upload'], function(angular) {
+        define(['angular', 'angular-file-upload'], function(angular) {
             return factory(angular);
         });
     } else {
