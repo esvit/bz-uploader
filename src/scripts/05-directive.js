@@ -5,7 +5,8 @@ app.directive('bzUploader', [function() {
             'url': '=bzUploader',
             'files': '=ngModel',
             'autoupload': '=',
-            'translates': '@text'
+            'translates': '@text',
+            'limit': '@'
         },
         controller: bzUploaderController,
         templateUrl: 'bz-uploader/uploader.html',

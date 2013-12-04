@@ -5,6 +5,7 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
         'upload': 'Upload',
         'cancel': 'Cancel'
     }, $parse($scope.translates || '')($scope) || {});
+    $scope.limit = $scope.limit || 10;
 
     // create a uploader with options
     var uploader = $fileUploader.create({
@@ -54,8 +55,13 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
 
     uploader.bind('success', function (event, xhr, item) {
         var response = $parse(xhr.response)();
-        $scope.files = $scope.files || [];
-        $scope.files.push(response);
+        if($scope.limit == 1) {
+            $scope.files = $scope.files || '';
+            $scope.files = response;
+        } else {
+            $scope.files = $scope.files || [];
+            $scope.files.push(response);
+        }
 
         angular.forEach(uploader.queue, function(file, n) {
             if (file == item) {
