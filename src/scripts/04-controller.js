@@ -76,9 +76,15 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
         //item.progress = 100;
     });
     uploader.bind('error', function (event, xhr, item) {
-        console.log('Complete: ', item);
+        //console.log('Complete: ', item);
         item.remove();
         item.progress = 100;
+        if($scope.limit == 1) {
+            $scope.files = xhr;
+        } else {
+            $scope.files = $scope.files || [];
+            $scope.files.push({error: xhr.response});
+        }
     });
 
     uploader.bind('progressall', function (event, progress) {
@@ -87,7 +93,7 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
     });
 
     uploader.bind('completeall', function (event, items) {
-        console.log('All files are transferred');
+        //console.log('All files are transferred');
         uploader.progress = 100;
     });
 
