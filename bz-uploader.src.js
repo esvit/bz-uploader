@@ -89,11 +89,12 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
         //console.log('Complete: ', item);
         item.remove();
         item.progress = 100;
+        var error = JSON.parse(xhr.response);
         if($scope.limit == 1) {
-            $scope.files = xhr;
+            $scope.files = error;
         } else {
             $scope.files = $scope.files || [];
-            $scope.files.push({error: xhr.response});
+            $scope.files.push({error: error});
         }
     });
 
