@@ -6,6 +6,7 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
         'cancel': 'Cancel'
     }, $parse($scope.translates || '')($scope) || {});
     $scope.limit = $scope.limit || 10;
+    $scope.errors = [];
 
     // create a uploader with options
     var uploader = $fileUploader.create({
@@ -80,12 +81,9 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
         item.remove();
         item.progress = 100;
         var error = JSON.parse(xhr.response);
-        if($scope.limit == 1) {
-            $scope.files = error;
-        } else {
-            $scope.files = $scope.files || [];
-            $scope.files.push({error: error});
-        }
+
+        $scope.errors = $scope.errors || [];
+        $scope.errors.push(error);
     });
 
     uploader.bind('progressall', function (event, progress) {
