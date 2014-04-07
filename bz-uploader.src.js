@@ -124,6 +124,7 @@ app.directive('bzUploader', [function() {
             'url': '=bzUploader',
             'files': '=ngModel',
             'autoupload': '=',
+            'errors': '=',
             'translates': '@text',
             'limit': '@'
         },
