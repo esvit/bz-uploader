@@ -22,7 +22,6 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', function($scope,
     };
 
     uploader.onSuccessItem = function (item, response, status, headers) {
-        var response = $parse(response)();
         if($scope.limit == 1) {
             $scope.files = $scope.files || '';
             $scope.files = response;
@@ -41,10 +40,9 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', function($scope,
     uploader.onErrorItem = function (item, response, status, headers) {
         item.remove();
         item.progress = 100;
-        var error = JSON.parse(response);
 
         $scope.errors = $scope.errors || [];
-        $scope.errors.push(error);
+        $scope.errors.push(response);
     };
 
     uploader.onProgressAll = function (progress) {
