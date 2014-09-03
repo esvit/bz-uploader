@@ -1,4 +1,4 @@
-var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {
+var bzUploaderController = ['$scope', 'FileUploader', '$parse', function($scope, FileUploader, $parse) {
     $scope.autoupload = $scope.autoupload || false;
     $scope.text = angular.extend({
         'choose': 'Choose files',
@@ -9,53 +9,20 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
     $scope.errors = [];
 
     // create a uploader with options
-    var uploader = $fileUploader.create({
+    var uploader = new FileUploader({
         scope: $scope,                          // to automatically update the html. Default: $rootScope
-        url: $scope.url.replace('\\:', ':'),    // replace \: -> : when port number
-        filters: [
-            function (item) {                    // first user filter
-                //console.log('filter1', item);
-                return true;
-            }
-        ]
+        url: $scope.url.replace('\\:', ':')    // replace \: -> : when port number
     });
     $scope.uploader = uploader;
 
-    // ADDING FILTER
-
-    uploader.filters.push(function (item) { // second user filter
-        //console.log('filter2');
-        return true;
-    });
-
-    // REGISTER HANDLERS
-
-    uploader.bind('afteraddingfile', function (event, item) {
-        //item.upload();
-        //console.log('After adding a file', item);
-    });
-
-    uploader.bind('afteraddingall', function (event, items) {
+    uploader.onAfterAddingFile = function (items) {
         if ($scope.autoupload) {
             uploader.uploadAll();
         }
-        //console.log('After adding all files', items);
-    });
+    };
 
-    uploader.bind('changedqueue', function (event, items) {
-        ///console.log('Changed queue', items);
-    });
-
-    uploader.bind('beforeupload', function (event, item) {
-        //console.log('Before upload', item);
-    });
-
-    uploader.bind('progress', function (event, item, progress) {
-        //console.log('Progress: ' + progress);
-    });
-
-    uploader.bind('success', function (event, xhr, item) {
-        var response = $parse(xhr.response)();
+    uploader.onSuccessItem = function (item, response, status, headers) {
+        var response = $parse(response)();
         if($scope.limit == 1) {
             $scope.files = $scope.files || '';
             $scope.files = response;
@@ -69,32 +36,24 @@ var bzUploaderController = ['$scope', '$fileUploader', '$parse', function($scope
                 uploader.queue.splice(n, 1);
             }
         });
-        console.log('Success: ', response);
-    });
+    };
 
-    uploader.bind('complete', function (event, xhr, item) {
-        //console.log('Complete: ' + xhr.status);
-        //item.progress = 100;
-    });
-    uploader.bind('error', function (event, xhr, item) {
-        //console.log('Complete: ', item);
+    uploader.onErrorItem = function (item, response, status, headers) {
         item.remove();
         item.progress = 100;
-        var error = JSON.parse(xhr.response);
+        var error = JSON.parse(response);
 
         $scope.errors = $scope.errors || [];
         $scope.errors.push(error);
-    });
+    };
 
-    uploader.bind('progressall', function (event, progress) {
-        //console.log('Total progress: ' + progress);
+    uploader.onProgressAll = function (progress) {
         uploader.progress = progress;
-    });
+    };
 
-    uploader.bind('completeall', function (event, items) {
-        //console.log('All files are transferred');
+    uploader.onCompleteAll = function () {
         uploader.progress = 100;
-    });
+    };
 
     $scope.deleteFiles = function() {
         $scope.files = [];

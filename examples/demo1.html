@@ -22,7 +22,7 @@
 
     <div ng-controller="DemoCtrl">
 
-        <div bz-uploader="'/php/upload.php'" ng-model="files" autoupload="false">
+        <div bz-uploader="'/php/upload.php'" ng-model="files" autoupload="false" errors="errors">
             <div ng-repeat="file in files" class="bz-uploaded-file">
                 <div class="file-preview">
                     <div class="thumbnail">

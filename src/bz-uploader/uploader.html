@@ -1,7 +1,7 @@
-<div class="bz-uploader" ng-file-drop>
+<div class="bz-uploader" ng-if="uploader" uploader="uploader" nv-file-drop>
     <div class="btn-upload">
         <a href="" class="btn btn-default">{{ text.choose }}</a>
-        <input class="btn-file-uploader" ng-file-select type="file" multiple/>
+        <input class="btn-file-uploader" nv-file-select uploader="uploader" type="file" multiple/>
     </div>
 
     <div class="bz-upload-total row" ng-if="uploader.queue.length">
