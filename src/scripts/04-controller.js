@@ -1,16 +1,24 @@
-var bzUploaderController = ['$scope', 'FileUploader', '$parse', function($scope, FileUploader, $parse) {
+var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', function($scope, FileUploader, $parse, $window) {
     $scope.autoupload = $scope.autoupload || false;
     $scope.text = angular.extend({
         'choose': 'Choose files',
         'upload': 'Upload',
         'cancel': 'Cancel'
     }, $parse($scope.translates || '')($scope) || {});
+
     $scope.limit = $scope.limit || 10;
     $scope.errors = [];
+
+    var token = $window.localStorage['token'];
+    var headers = {};
+    if (token) {
+        headers['Authorization'] = 'Bearer ' + token;
+    }
 
     // create a uploader with options
     var uploader = new FileUploader({
         scope: $scope,                          // to automatically update the html. Default: $rootScope
+        headers: headers,
         url: $scope.url.replace('\\:', ':')    // replace \: -> : when port number
     });
     $scope.uploader = uploader;
