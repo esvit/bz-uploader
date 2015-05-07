@@ -9,7 +9,7 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
     $scope.limit = $scope.limit || 10;
     $scope.errors = [];
 
-    var token = $window.localStorage['token'];
+    var token = $window.localStorage['token'] || $window.localStorage['ngStorage-token'];
     var headers = {};
     if (token) {
         headers['Authorization'] = 'Bearer ' + token;
