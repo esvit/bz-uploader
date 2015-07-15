@@ -30,7 +30,8 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
     };
 
     uploader.onSuccessItem = function (item, response, status, headers) {
-        response = (typeof response == 'object' || typeof response == 'string') ? response : JSON.parse(response);
+        response = (typeof response == 'object' || typeof response == 'string') ? decodeURIComponent(response) : JSON.parse(response);
+        console.log('Success: ', response);
         if($scope.limit == 1) {
             $scope.files = $scope.files || '';
             $scope.files = response;
