@@ -39,6 +39,7 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
         }
         console.log('Success: ', response);
 
+        $scope.errors = [];
         if($scope.limit == 1) {
             $scope.files = $scope.files || '';
             $scope.files = response;
