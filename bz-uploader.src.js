@@ -20,6 +20,7 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
     $scope.errors = [];
 
     var token = $window.localStorage['token'] || $window.localStorage['ngStorage-token'];
+    token = token || $window.localStorage['satellizer_token'];
     var headers = {};
     if (token) {
         headers['Authorization'] = 'Bearer ' + token;
@@ -48,7 +49,7 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
             }
         }
         console.log('Success: ', response);
-        
+
         $scope.errors = [];
         if($scope.limit == 1) {
             $scope.files = $scope.files || '';
