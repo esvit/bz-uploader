@@ -27,11 +27,14 @@ var bzUploaderController = ['$scope', 'FileUploader', '$parse', '$window', funct
 
     uploader.onAfterAddingFile = function (items) {
         if ($scope.autoupload) {
+            uploader.loading = true;
             uploader.uploadAll();
         }
     };
 
     uploader.onSuccessItem = function (item, response, status, headers) {
+        uploader.loading = false;
+
         if(typeof response == 'string') {
             try {
                 response = JSON.parse(response);
